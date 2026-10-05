@@ -10,12 +10,66 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as InboxRouteImport } from './routes/inbox'
+import { Route as AdminAccessRouteImport } from './routes/admin.access'
+import { Route as AdminAuditRouteImport } from './routes/admin.audit'
+import { Route as AdminIntegrationsRouteImport } from './routes/admin.integrations'
+import { Route as AdminLoyaltyRouteImport } from './routes/admin.loyalty'
+import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
+import { Route as AdminReportsRouteImport } from './routes/admin.reports'
 import { Route as BookingsIndexRouteImport } from './routes/bookings.index'
 import { Route as BookingsIdRouteImport } from './routes/bookings.$id'
+import { Route as BookingsRefundsRouteImport } from './routes/bookings.refunds'
+import { Route as CustomersIndexRouteImport } from './routes/customers.index'
+import { Route as CustomersIdRouteImport } from './routes/customers.$id'
+import { Route as SalesIndexRouteImport } from './routes/sales.index'
+import { Route as SalesIdRouteImport } from './routes/sales.$id'
+import { Route as SalesCommissionRouteImport } from './routes/sales.commission'
+import { Route as StockIndexRouteImport } from './routes/stock.index'
+import { Route as StockIdRouteImport } from './routes/stock.$id'
+import { Route as StockCheckRouteImport } from './routes/stock.check'
+import { Route as StockOperationsRouteImport } from './routes/stock.operations'
+import { Route as StockRedPlatesRouteImport } from './routes/stock.red-plates'
+import { Route as StockServiceOrdersRouteImport } from './routes/stock.service-orders'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InboxRoute = InboxRouteImport.update({
+  id: '/inbox',
+  path: '/inbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAccessRoute = AdminAccessRouteImport.update({
+  id: '/admin/access',
+  path: '/admin/access',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAuditRoute = AdminAuditRouteImport.update({
+  id: '/admin/audit',
+  path: '/admin/audit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIntegrationsRoute = AdminIntegrationsRouteImport.update({
+  id: '/admin/integrations',
+  path: '/admin/integrations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoyaltyRoute = AdminLoyaltyRouteImport.update({
+  id: '/admin/loyalty',
+  path: '/admin/loyalty',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
+  id: '/admin/notifications',
+  path: '/admin/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminReportsRoute = AdminReportsRouteImport.update({
+  id: '/admin/reports',
+  path: '/admin/reports',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookingsIndexRoute = BookingsIndexRouteImport.update({
@@ -28,35 +82,238 @@ const BookingsIdRoute = BookingsIdRouteImport.update({
   path: '/bookings/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingsRefundsRoute = BookingsRefundsRouteImport.update({
+  id: '/bookings/refunds',
+  path: '/bookings/refunds',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomersIndexRoute = CustomersIndexRouteImport.update({
+  id: '/customers/',
+  path: '/customers/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomersIdRoute = CustomersIdRouteImport.update({
+  id: '/customers/$id',
+  path: '/customers/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SalesIndexRoute = SalesIndexRouteImport.update({
+  id: '/sales/',
+  path: '/sales/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SalesIdRoute = SalesIdRouteImport.update({
+  id: '/sales/$id',
+  path: '/sales/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SalesCommissionRoute = SalesCommissionRouteImport.update({
+  id: '/sales/commission',
+  path: '/sales/commission',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StockIndexRoute = StockIndexRouteImport.update({
+  id: '/stock/',
+  path: '/stock/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StockIdRoute = StockIdRouteImport.update({
+  id: '/stock/$id',
+  path: '/stock/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StockCheckRoute = StockCheckRouteImport.update({
+  id: '/stock/check',
+  path: '/stock/check',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StockOperationsRoute = StockOperationsRouteImport.update({
+  id: '/stock/operations',
+  path: '/stock/operations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StockRedPlatesRoute = StockRedPlatesRouteImport.update({
+  id: '/stock/red-plates',
+  path: '/stock/red-plates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StockServiceOrdersRoute = StockServiceOrdersRouteImport.update({
+  id: '/stock/service-orders',
+  path: '/stock/service-orders',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/inbox': typeof InboxRoute
+  '/admin/access': typeof AdminAccessRoute
+  '/admin/audit': typeof AdminAuditRoute
+  '/admin/integrations': typeof AdminIntegrationsRoute
+  '/admin/loyalty': typeof AdminLoyaltyRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/reports': typeof AdminReportsRoute
   '/bookings/$id': typeof BookingsIdRoute
+  '/bookings/refunds': typeof BookingsRefundsRoute
+  '/customers/$id': typeof CustomersIdRoute
+  '/sales/$id': typeof SalesIdRoute
+  '/sales/commission': typeof SalesCommissionRoute
+  '/stock/$id': typeof StockIdRoute
+  '/stock/check': typeof StockCheckRoute
+  '/stock/operations': typeof StockOperationsRoute
+  '/stock/red-plates': typeof StockRedPlatesRoute
+  '/stock/service-orders': typeof StockServiceOrdersRoute
   '/bookings/': typeof BookingsIndexRoute
+  '/customers/': typeof CustomersIndexRoute
+  '/sales/': typeof SalesIndexRoute
+  '/stock/': typeof StockIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/inbox': typeof InboxRoute
+  '/admin/access': typeof AdminAccessRoute
+  '/admin/audit': typeof AdminAuditRoute
+  '/admin/integrations': typeof AdminIntegrationsRoute
+  '/admin/loyalty': typeof AdminLoyaltyRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/reports': typeof AdminReportsRoute
   '/bookings/$id': typeof BookingsIdRoute
+  '/bookings/refunds': typeof BookingsRefundsRoute
+  '/customers/$id': typeof CustomersIdRoute
+  '/sales/$id': typeof SalesIdRoute
+  '/sales/commission': typeof SalesCommissionRoute
+  '/stock/$id': typeof StockIdRoute
+  '/stock/check': typeof StockCheckRoute
+  '/stock/operations': typeof StockOperationsRoute
+  '/stock/red-plates': typeof StockRedPlatesRoute
+  '/stock/service-orders': typeof StockServiceOrdersRoute
   '/bookings': typeof BookingsIndexRoute
+  '/customers': typeof CustomersIndexRoute
+  '/sales': typeof SalesIndexRoute
+  '/stock': typeof StockIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/inbox': typeof InboxRoute
+  '/admin/access': typeof AdminAccessRoute
+  '/admin/audit': typeof AdminAuditRoute
+  '/admin/integrations': typeof AdminIntegrationsRoute
+  '/admin/loyalty': typeof AdminLoyaltyRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/reports': typeof AdminReportsRoute
   '/bookings/$id': typeof BookingsIdRoute
+  '/bookings/refunds': typeof BookingsRefundsRoute
+  '/customers/$id': typeof CustomersIdRoute
+  '/sales/$id': typeof SalesIdRoute
+  '/sales/commission': typeof SalesCommissionRoute
+  '/stock/$id': typeof StockIdRoute
+  '/stock/check': typeof StockCheckRoute
+  '/stock/operations': typeof StockOperationsRoute
+  '/stock/red-plates': typeof StockRedPlatesRoute
+  '/stock/service-orders': typeof StockServiceOrdersRoute
   '/bookings/': typeof BookingsIndexRoute
+  '/customers/': typeof CustomersIndexRoute
+  '/sales/': typeof SalesIndexRoute
+  '/stock/': typeof StockIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bookings/$id' | '/bookings/'
+  fullPaths:
+    | '/'
+    | '/inbox'
+    | '/admin/access'
+    | '/admin/audit'
+    | '/admin/integrations'
+    | '/admin/loyalty'
+    | '/admin/notifications'
+    | '/admin/reports'
+    | '/bookings/$id'
+    | '/bookings/refunds'
+    | '/customers/$id'
+    | '/sales/$id'
+    | '/sales/commission'
+    | '/stock/$id'
+    | '/stock/check'
+    | '/stock/operations'
+    | '/stock/red-plates'
+    | '/stock/service-orders'
+    | '/bookings/'
+    | '/customers/'
+    | '/sales/'
+    | '/stock/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bookings/$id' | '/bookings'
-  id: '__root__' | '/' | '/bookings/$id' | '/bookings/'
+  to:
+    | '/'
+    | '/inbox'
+    | '/admin/access'
+    | '/admin/audit'
+    | '/admin/integrations'
+    | '/admin/loyalty'
+    | '/admin/notifications'
+    | '/admin/reports'
+    | '/bookings/$id'
+    | '/bookings/refunds'
+    | '/customers/$id'
+    | '/sales/$id'
+    | '/sales/commission'
+    | '/stock/$id'
+    | '/stock/check'
+    | '/stock/operations'
+    | '/stock/red-plates'
+    | '/stock/service-orders'
+    | '/bookings'
+    | '/customers'
+    | '/sales'
+    | '/stock'
+  id:
+    | '__root__'
+    | '/'
+    | '/inbox'
+    | '/admin/access'
+    | '/admin/audit'
+    | '/admin/integrations'
+    | '/admin/loyalty'
+    | '/admin/notifications'
+    | '/admin/reports'
+    | '/bookings/$id'
+    | '/bookings/refunds'
+    | '/customers/$id'
+    | '/sales/$id'
+    | '/sales/commission'
+    | '/stock/$id'
+    | '/stock/check'
+    | '/stock/operations'
+    | '/stock/red-plates'
+    | '/stock/service-orders'
+    | '/bookings/'
+    | '/customers/'
+    | '/sales/'
+    | '/stock/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  InboxRoute: typeof InboxRoute
+  AdminAccessRoute: typeof AdminAccessRoute
+  AdminAuditRoute: typeof AdminAuditRoute
+  AdminIntegrationsRoute: typeof AdminIntegrationsRoute
+  AdminLoyaltyRoute: typeof AdminLoyaltyRoute
+  AdminNotificationsRoute: typeof AdminNotificationsRoute
+  AdminReportsRoute: typeof AdminReportsRoute
   BookingsIdRoute: typeof BookingsIdRoute
+  BookingsRefundsRoute: typeof BookingsRefundsRoute
+  CustomersIdRoute: typeof CustomersIdRoute
+  SalesIdRoute: typeof SalesIdRoute
+  SalesCommissionRoute: typeof SalesCommissionRoute
+  StockIdRoute: typeof StockIdRoute
+  StockCheckRoute: typeof StockCheckRoute
+  StockOperationsRoute: typeof StockOperationsRoute
+  StockRedPlatesRoute: typeof StockRedPlatesRoute
+  StockServiceOrdersRoute: typeof StockServiceOrdersRoute
   BookingsIndexRoute: typeof BookingsIndexRoute
+  CustomersIndexRoute: typeof CustomersIndexRoute
+  SalesIndexRoute: typeof SalesIndexRoute
+  StockIndexRoute: typeof StockIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +323,55 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inbox': {
+      id: '/inbox'
+      path: '/inbox'
+      fullPath: '/inbox'
+      preLoaderRoute: typeof InboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/access': {
+      id: '/admin/access'
+      path: '/admin/access'
+      fullPath: '/admin/access'
+      preLoaderRoute: typeof AdminAccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/audit': {
+      id: '/admin/audit'
+      path: '/admin/audit'
+      fullPath: '/admin/audit'
+      preLoaderRoute: typeof AdminAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/integrations': {
+      id: '/admin/integrations'
+      path: '/admin/integrations'
+      fullPath: '/admin/integrations'
+      preLoaderRoute: typeof AdminIntegrationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/loyalty': {
+      id: '/admin/loyalty'
+      path: '/admin/loyalty'
+      fullPath: '/admin/loyalty'
+      preLoaderRoute: typeof AdminLoyaltyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/notifications': {
+      id: '/admin/notifications'
+      path: '/admin/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AdminNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/reports': {
+      id: '/admin/reports'
+      path: '/admin/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AdminReportsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bookings/': {
@@ -82,13 +388,116 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookingsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bookings/refunds': {
+      id: '/bookings/refunds'
+      path: '/bookings/refunds'
+      fullPath: '/bookings/refunds'
+      preLoaderRoute: typeof BookingsRefundsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customers/': {
+      id: '/customers/'
+      path: '/customers'
+      fullPath: '/customers/'
+      preLoaderRoute: typeof CustomersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customers/$id': {
+      id: '/customers/$id'
+      path: '/customers/$id'
+      fullPath: '/customers/$id'
+      preLoaderRoute: typeof CustomersIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sales/': {
+      id: '/sales/'
+      path: '/sales'
+      fullPath: '/sales/'
+      preLoaderRoute: typeof SalesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sales/$id': {
+      id: '/sales/$id'
+      path: '/sales/$id'
+      fullPath: '/sales/$id'
+      preLoaderRoute: typeof SalesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sales/commission': {
+      id: '/sales/commission'
+      path: '/sales/commission'
+      fullPath: '/sales/commission'
+      preLoaderRoute: typeof SalesCommissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stock/': {
+      id: '/stock/'
+      path: '/stock'
+      fullPath: '/stock/'
+      preLoaderRoute: typeof StockIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stock/$id': {
+      id: '/stock/$id'
+      path: '/stock/$id'
+      fullPath: '/stock/$id'
+      preLoaderRoute: typeof StockIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stock/check': {
+      id: '/stock/check'
+      path: '/stock/check'
+      fullPath: '/stock/check'
+      preLoaderRoute: typeof StockCheckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stock/operations': {
+      id: '/stock/operations'
+      path: '/stock/operations'
+      fullPath: '/stock/operations'
+      preLoaderRoute: typeof StockOperationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stock/red-plates': {
+      id: '/stock/red-plates'
+      path: '/stock/red-plates'
+      fullPath: '/stock/red-plates'
+      preLoaderRoute: typeof StockRedPlatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stock/service-orders': {
+      id: '/stock/service-orders'
+      path: '/stock/service-orders'
+      fullPath: '/stock/service-orders'
+      preLoaderRoute: typeof StockServiceOrdersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  InboxRoute: InboxRoute,
+  AdminAccessRoute: AdminAccessRoute,
+  AdminAuditRoute: AdminAuditRoute,
+  AdminIntegrationsRoute: AdminIntegrationsRoute,
+  AdminLoyaltyRoute: AdminLoyaltyRoute,
+  AdminNotificationsRoute: AdminNotificationsRoute,
+  AdminReportsRoute: AdminReportsRoute,
   BookingsIdRoute: BookingsIdRoute,
+  BookingsRefundsRoute: BookingsRefundsRoute,
+  CustomersIdRoute: CustomersIdRoute,
+  SalesIdRoute: SalesIdRoute,
+  SalesCommissionRoute: SalesCommissionRoute,
+  StockIdRoute: StockIdRoute,
+  StockCheckRoute: StockCheckRoute,
+  StockOperationsRoute: StockOperationsRoute,
+  StockRedPlatesRoute: StockRedPlatesRoute,
+  StockServiceOrdersRoute: StockServiceOrdersRoute,
   BookingsIndexRoute: BookingsIndexRoute,
+  CustomersIndexRoute: CustomersIndexRoute,
+  SalesIndexRoute: SalesIndexRoute,
+  StockIndexRoute: StockIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

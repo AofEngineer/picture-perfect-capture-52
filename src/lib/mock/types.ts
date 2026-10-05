@@ -1,12 +1,7 @@
+import type { DocumentAnalysis } from "@/lib/ai/types";
+
 export type RoleId =
-  | "sales"
-  | "manager"
-  | "stock"
-  | "service"
-  | "finance"
-  | "loyalty"
-  | "admin"
-  | "auditor";
+  "sales" | "manager" | "stock" | "service" | "finance" | "loyalty" | "admin" | "auditor";
 
 export type MenuKey =
   | "dashboard"
@@ -33,8 +28,19 @@ export interface RolePerm {
   menus: Partial<Record<MenuKey, Action[]>>;
 }
 
-export interface Branch { id: string; name: string; short: string }
-export interface SalesPerson { id: string; code: string; name: string; branchId: string; target: number; phone: string }
+export interface Branch {
+  id: string;
+  name: string;
+  short: string;
+}
+export interface SalesPerson {
+  id: string;
+  code: string;
+  name: string;
+  branchId: string;
+  target: number;
+  phone: string;
+}
 
 export type StockStatus = "available" | "reserved" | "incoming" | "transfer" | "prep" | "sold";
 export interface Vehicle {
@@ -52,10 +58,10 @@ export interface Vehicle {
   branchSince: string;
   status: StockStatus;
   ready: boolean;
-  readyNote?: string;
-  expectedAt?: string;
-  bonus?: { amount: number; condition: string; until: string };
-  releaseEvent?: { at: string; reason: string };
+  readyNote?: string | undefined;
+  expectedAt?: string | undefined;
+  bonus?: { amount: number; condition: string; until: string } | undefined;
+  releaseEvent?: { at: string; reason: string } | undefined;
   history: { at: string; text: string }[];
 }
 
@@ -84,16 +90,19 @@ export type BookingStatus = "active" | "expired" | "closed" | "cancelled";
 
 export interface Refund {
   id: string;
-  branch: "A" | "B" | "C" | "D";
+  branch: "A" | "B" | "C" | "D" | "E";
   step: number; // 0..5
   requestedAt: string;
   amount: number;
   deduction: number;
-  deductionNote?: string;
+  deductionNote?: string | undefined;
   pointsReturn: number;
   reason: string;
   status: "pending" | "approved" | "rejected" | "paid" | "closed";
   branchId: string;
+  channel?: string;
+  evidence?: string;
+  approver?: string;
   history: { at: string; by: string; text: string }[];
 }
 
@@ -107,17 +116,29 @@ export interface Booking {
   deposit: number;
   price: number;
   expiresAt: string;
-  deliveryAt?: string;
+  deliveryAt?: string | undefined;
   step: number; // 0..7 index of workflow
   status: BookingStatus;
-  expireReason?: string;
-  releaseState?: "awaiting" | "released";
-  amlo: { status: AmloStatus; at?: string; ref?: string };
-  ocr: { confirmed: boolean; by?: string; at?: string };
-  esign: { status: EsignStatus; signers: { name: string; role: string; signedAt?: string }[] };
+  expireReason?: string | undefined;
+  releaseState?: "awaiting" | "released" | undefined;
+  amlo: { status: AmloStatus; at?: string | undefined; ref?: string | undefined };
+  ocr: {
+    confirmed: boolean;
+    by?: string | undefined;
+    at?: string | undefined;
+    fields?: { k: string; v: string; conf: number }[] | undefined;
+    analysis?: DocumentAnalysis | undefined;
+    documents?: DocumentAnalysis[] | undefined;
+  };
+  esign: {
+    status: EsignStatus;
+    signers: { name: string; role: string; signedAt?: string | undefined }[];
+  };
   pointsUsed: number;
+  pointValue?: number | undefined;
+  formulaVersion?: string | undefined;
   paid: number;
-  refund?: Refund;
+  refund?: Refund | undefined;
   docs: { type: string; version: number; at: string; by: string }[];
   history: { at: string; by: string; text: string }[];
 }
@@ -128,14 +149,14 @@ export interface Task {
   type: "testdrive" | "delivery" | "docs" | "payment" | "plate" | "prep";
   title: string;
   date: string;
-  customerId?: string;
-  bookingId?: string;
-  vehicleId?: string;
-  serviceOrderId?: string;
+  customerId?: string | undefined;
+  bookingId?: string | undefined;
+  vehicleId?: string | undefined;
+  serviceOrderId?: string | undefined;
   assignee: string;
   branchId: string;
   status: TaskStatus;
-  step?: number;
+  step?: number | undefined;
 }
 
 export interface ServiceOrder {
@@ -146,7 +167,13 @@ export interface ServiceOrder {
   assignee: string;
   due: string;
   status: "todo" | "doing" | "done" | "overdue";
-  items: { name: string; done: boolean; doneAt?: string; note?: string; checker?: string }[];
+  items: {
+    name: string;
+    done: boolean;
+    doneAt?: string | undefined;
+    note?: string | undefined;
+    checker?: string | undefined;
+  }[];
 }
 
 export type PlateStatus = "available" | "matched" | "lost" | "transfer" | "checking";
@@ -155,15 +182,21 @@ export interface RedPlate {
   number: string;
   branchId: string;
   status: PlateStatus;
-  bookingId?: string;
-  borrowedAt?: string;
-  registeredAt?: string;
-  lastContact?: string;
-  follow?: string;
-  appointment?: string;
+  bookingId?: string | undefined;
+  borrowedAt?: string | undefined;
+  registeredAt?: string | undefined;
+  lastContact?: string | undefined;
+  follow?: string | undefined;
+  appointment?: string | undefined;
+  ownerBranchId?: string | undefined;
+  province?: string | undefined;
+  previousBookingId?: string | undefined;
+  transferTo?: string | undefined;
+  history?: { at: string; by: string; text: string }[] | undefined;
 }
 
-export type CommissionStatus = "draft" | "submitted" | "mgr_review" | "fin_review" | "approved" | "paid" | "rejected";
+export type CommissionStatus =
+  "draft" | "submitted" | "mgr_review" | "fin_review" | "approved" | "paid" | "rejected";
 export interface Commission {
   id: string;
   bookingId: string;
@@ -173,15 +206,17 @@ export interface Commission {
   bonus: number;
   adjust: number;
   status: CommissionStatus;
-  note?: string;
-  claimNo?: string;
-  paidAt?: string;
+  note?: string | undefined;
+  claimNo?: string | undefined;
+  paidAt?: string | undefined;
+  bonusCondition?: string | undefined;
+  history?: { at: string; by: string; text: string }[] | undefined;
 }
 
 export interface LoyaltyTx {
   id: string;
   customerId: string;
-  bookingId?: string;
+  bookingId?: string | undefined;
   type: "Earn" | "Burn" | "Adjust" | "Reverse";
   points: number;
   value: number;
@@ -201,9 +236,9 @@ export interface AuditEntry {
   action: string;
   entity: string;
   entityId: string;
-  before?: string;
-  after?: string;
-  reason?: string;
+  before?: string | undefined;
+  after?: string | undefined;
+  reason?: string | undefined;
   ref: string;
 }
 
@@ -218,6 +253,8 @@ export interface Notice {
   at: string;
   priority: "high" | "medium" | "low";
   read: boolean;
+  eventKey?: string | undefined;
+  recipientRoles?: RoleId[] | undefined;
 }
 
 export interface Integration {
@@ -273,8 +310,19 @@ export interface DemoState {
   notices: Notice[];
   integrations: Integration[];
   loyaltyConfig: LoyaltyConfig;
+  loyaltyDraft?: LoyaltyConfig | undefined;
   roles: RolePerm[];
   rules: NotifyRule[];
-  transfers: { id: string; vehicleId: string; from: string; to: string; reason: string; by: string; approver?: string; at: string; status: "request" | "approved" | "moving" | "received" | "cancelled" }[];
+  transfers: {
+    id: string;
+    vehicleId: string;
+    from: string;
+    to: string;
+    reason: string;
+    by: string;
+    approver?: string | undefined;
+    at: string;
+    status: "request" | "approved" | "moving" | "received" | "cancelled";
+  }[];
   plateFollowDays: number;
 }

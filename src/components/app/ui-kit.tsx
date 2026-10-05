@@ -1,10 +1,32 @@
 import { useMemo, useState, type ReactNode } from "react";
-import { ArrowDown, ArrowUp, ArrowUpDown, ChevronLeft, ChevronRight, Inbox, Search, Check, FlaskConical } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  ArrowUpDown,
+  ChevronLeft,
+  ChevronRight,
+  Inbox,
+  Search,
+  Check,
+  FlaskConical,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 /* ---------- Status badge: always text + icon dot, never color alone ---------- */
 export type Tone = "neutral" | "info" | "success" | "warning" | "danger" | "dark";
@@ -17,26 +39,67 @@ const toneCls: Record<Tone, string> = {
   dark: "bg-foreground text-background border-foreground",
 };
 const toneDot: Record<Tone, string> = {
-  neutral: "bg-muted-foreground", info: "bg-primary", success: "bg-success", warning: "bg-warning", danger: "bg-destructive", dark: "bg-background",
+  neutral: "bg-muted-foreground",
+  info: "bg-primary",
+  success: "bg-success",
+  warning: "bg-warning",
+  danger: "bg-destructive",
+  dark: "bg-background",
 };
-export function StatusBadge({ tone = "neutral", children, className }: { tone?: Tone; children: ReactNode; className?: string }) {
+export function StatusBadge({
+  tone = "neutral",
+  children,
+  className,
+}: {
+  tone?: Tone | undefined;
+  children: ReactNode;
+  className?: string | undefined;
+}) {
   return (
-    <span className={cn("inline-flex items-center gap-1.5 whitespace-nowrap rounded-sm border px-2 py-0.5 text-xs font-medium", toneCls[tone], className)}>
+    <span
+      className={cn(
+        "inline-flex items-center gap-1.5 whitespace-nowrap rounded-sm border px-2 py-0.5 text-xs font-medium",
+        toneCls[tone],
+        className,
+      )}
+    >
       <span className={cn("size-1.5 rounded-full", toneDot[tone])} aria-hidden />
       {children}
     </span>
   );
 }
 
-export function DemoTag({ label = "ข้อมูลจำลอง / Demo", className }: { label?: string; className?: string }) {
+export function DemoTag({
+  label,
+  className,
+}: {
+  label?: string | undefined;
+  className?: string | undefined;
+}) {
+  if (!label) return null;
   return (
-    <span className={cn("inline-flex items-center gap-1 rounded-sm border border-demo-foreground/20 bg-demo px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-demo-foreground", className)}>
+    <span
+      className={cn(
+        "inline-flex items-center gap-1 rounded-sm border border-demo-foreground/20 bg-demo px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-demo-foreground",
+        className,
+      )}
+    >
       <FlaskConical className="size-3" /> {label}
     </span>
   );
 }
 
-export function PageHeader({ title, subtitle, actions, demo }: { title: string; subtitle?: string; actions?: ReactNode; demo?: boolean }) {
+export function PageHeader({
+  title,
+  subtitle,
+  actions,
+  demo,
+}: {
+  title: string;
+  subtitle?: string | undefined;
+  actions?: ReactNode | undefined;
+  demo?: boolean | undefined;
+}) {
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div>
@@ -51,7 +114,19 @@ export function PageHeader({ title, subtitle, actions, demo }: { title: string; 
   );
 }
 
-export function Panel({ title, actions, children, className, bodyClass }: { title?: ReactNode; actions?: ReactNode; children: ReactNode; className?: string; bodyClass?: string }) {
+export function Panel({
+  title,
+  actions,
+  children,
+  className,
+  bodyClass,
+}: {
+  title?: ReactNode | undefined;
+  actions?: ReactNode | undefined;
+  children: ReactNode;
+  className?: string | undefined;
+  bodyClass?: string | undefined;
+}) {
   return (
     <section className={cn("rounded-md border bg-card shadow-card", className)}>
       {(title || actions) && (
@@ -65,12 +140,43 @@ export function Panel({ title, actions, children, className, bodyClass }: { titl
   );
 }
 
-export function Kpi({ label, value, hint, icon, tone = "neutral", onClick }: { label: string; value: ReactNode; hint?: string; icon?: ReactNode; tone?: Tone; onClick?: () => void }) {
+export function Kpi({
+  label,
+  value,
+  hint,
+  icon,
+  tone = "neutral",
+  onClick,
+}: {
+  label: string;
+  value: ReactNode;
+  hint?: string | undefined;
+  icon?: ReactNode | undefined;
+  tone?: Tone | undefined;
+  onClick?: (() => void) | undefined;
+}) {
   return (
-    <button onClick={onClick} className={cn("group relative overflow-hidden rounded-md border bg-card p-4 text-left shadow-card transition hover:border-primary/50", onClick && "cursor-pointer")}>
+    <button
+      onClick={onClick}
+      className={cn(
+        "group relative overflow-hidden rounded-md border bg-card p-4 text-left shadow-card transition hover:border-primary/50",
+        onClick && "cursor-pointer",
+      )}
+    >
       <div className="flex items-start justify-between">
         <span className="text-xs font-medium text-muted-foreground">{label}</span>
-        <span className={cn("rounded-sm p-1.5", tone === "danger" ? "bg-destructive/10 text-destructive" : tone === "warning" ? "bg-warning/15 text-warning-foreground" : "bg-accent text-accent-foreground")}>{icon}</span>
+        <span
+          className={cn(
+            "rounded-sm p-1.5",
+            tone === "danger"
+              ? "bg-destructive/10 text-destructive"
+              : tone === "warning"
+                ? "bg-warning/15 text-warning-foreground"
+                : "bg-accent text-accent-foreground",
+          )}
+        >
+          {icon}
+        </span>
       </div>
       <div className="mt-2 text-3xl font-semibold tracking-tight">{value}</div>
       {hint && <div className="mt-1 text-xs text-muted-foreground">{hint}</div>}
@@ -79,7 +185,13 @@ export function Kpi({ label, value, hint, icon, tone = "neutral", onClick }: { l
   );
 }
 
-export function EmptyState({ title = "ไม่พบข้อมูล", hint = "ลองปรับเงื่อนไขการค้นหาหรือตัวกรอง" }: { title?: string; hint?: string }) {
+export function EmptyState({
+  title = "ไม่พบข้อมูล",
+  hint = "ลองปรับเงื่อนไขการค้นหาหรือตัวกรอง",
+}: {
+  title?: string | undefined;
+  hint?: string | undefined;
+}) {
   return (
     <div className="flex flex-col items-center justify-center py-12 text-center">
       <Inbox className="size-10 text-muted-foreground/50" />
@@ -94,20 +206,27 @@ export interface Column<T> {
   key: string;
   header: string;
   cell: (row: T) => ReactNode;
-  sort?: (row: T) => string | number;
-  className?: string;
+  sort?: ((row: T) => string | number) | undefined;
+  className?: string | undefined;
 }
 export function DataTable<T>({
-  rows, columns, searchText, onRowClick, pageSize = 10, toolbar, placeholder = "ค้นหา...", emptyTitle,
+  rows,
+  columns,
+  searchText,
+  onRowClick,
+  pageSize = 10,
+  toolbar,
+  placeholder = "ค้นหา...",
+  emptyTitle,
 }: {
   rows: T[];
   columns: Column<T>[];
-  searchText?: (row: T) => string;
-  onRowClick?: (row: T) => void;
-  pageSize?: number;
-  toolbar?: ReactNode;
-  placeholder?: string;
-  emptyTitle?: string;
+  searchText?: ((row: T) => string) | undefined;
+  onRowClick?: ((row: T) => void) | undefined;
+  pageSize?: number | undefined;
+  toolbar?: ReactNode | undefined;
+  placeholder?: string | undefined;
+  emptyTitle?: string | undefined;
 }) {
   const [q, setQ] = useState("");
   const [sort, setSort] = useState<{ key: string; dir: 1 | -1 } | null>(null);
@@ -121,7 +240,11 @@ export function DataTable<T>({
     }
     if (sort) {
       const col = columns.find((c) => c.key === sort.key);
-      if (col?.sort) r = [...r].sort((a, b) => (col.sort!(a) > col.sort!(b) ? 1 : col.sort!(a) < col.sort!(b) ? -1 : 0) * sort.dir);
+      if (col?.sort)
+        r = [...r].sort(
+          (a, b) =>
+            (col.sort!(a) > col.sort!(b) ? 1 : col.sort!(a) < col.sort!(b) ? -1 : 0) * sort.dir,
+        );
     }
     return r;
   }, [rows, q, sort, columns, searchText]);
@@ -136,7 +259,15 @@ export function DataTable<T>({
         {searchText && (
           <div className="relative w-full max-w-xs">
             <Search className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-            <Input value={q} onChange={(e) => { setQ(e.target.value); setPage(0); }} placeholder={placeholder} className="h-9 pl-8" />
+            <Input
+              value={q}
+              onChange={(e) => {
+                setQ(e.target.value);
+                setPage(0);
+              }}
+              placeholder={placeholder}
+              className="h-9 pl-8"
+            />
           </div>
         )}
         {toolbar}
@@ -147,21 +278,54 @@ export function DataTable<T>({
           <thead>
             <tr className="border-b bg-muted/60 text-left text-xs text-muted-foreground">
               {columns.map((c) => (
-                <th key={c.key} className={cn("whitespace-nowrap px-3 py-2.5 font-medium", c.className)}>
+                <th
+                  key={c.key}
+                  className={cn("whitespace-nowrap px-3 py-2.5 font-medium", c.className)}
+                >
                   {c.sort ? (
-                    <button className="inline-flex items-center gap-1 hover:text-foreground" onClick={() => setSort((s) => (s?.key === c.key ? { key: c.key, dir: s.dir === 1 ? -1 : 1 } : { key: c.key, dir: 1 }))}>
+                    <button
+                      className="inline-flex items-center gap-1 hover:text-foreground"
+                      onClick={() =>
+                        setSort((s) =>
+                          s?.key === c.key
+                            ? { key: c.key, dir: s.dir === 1 ? -1 : 1 }
+                            : { key: c.key, dir: 1 },
+                        )
+                      }
+                    >
                       {c.header}
-                      {sort?.key === c.key ? sort.dir === 1 ? <ArrowUp className="size-3" /> : <ArrowDown className="size-3" /> : <ArrowUpDown className="size-3 opacity-40" />}
+                      {sort?.key === c.key ? (
+                        sort.dir === 1 ? (
+                          <ArrowUp className="size-3" />
+                        ) : (
+                          <ArrowDown className="size-3" />
+                        )
+                      ) : (
+                        <ArrowUpDown className="size-3 opacity-40" />
+                      )}
                     </button>
-                  ) : c.header}
+                  ) : (
+                    c.header
+                  )}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
             {slice.map((r, i) => (
-              <tr key={i} onClick={() => onRowClick?.(r)} className={cn("border-b last:border-0 transition-colors hover:bg-accent/50", onRowClick && "cursor-pointer")}>
-                {columns.map((c) => <td key={c.key} className={cn("px-3 py-2.5 align-middle", c.className)}>{c.cell(r)}</td>)}
+              <tr
+                key={i}
+                onClick={() => onRowClick?.(r)}
+                className={cn(
+                  "border-b last:border-0 transition-colors hover:bg-accent/50",
+                  onRowClick && "cursor-pointer",
+                )}
+              >
+                {columns.map((c) => (
+                  <td key={c.key} className={cn("px-3 py-2.5 align-middle", c.className)}>
+                    {c.cell(r)}
+                  </td>
+                ))}
               </tr>
             ))}
           </tbody>
@@ -170,29 +334,75 @@ export function DataTable<T>({
       </div>
       {pages > 1 && (
         <div className="flex items-center justify-end gap-2 border-t p-2 text-xs">
-          <span className="text-muted-foreground">หน้า {cur + 1} / {pages}</span>
-          <Button size="icon" variant="ghost" className="size-7" disabled={cur === 0} onClick={() => setPage(cur - 1)}><ChevronLeft className="size-4" /></Button>
-          <Button size="icon" variant="ghost" className="size-7" disabled={cur >= pages - 1} onClick={() => setPage(cur + 1)}><ChevronRight className="size-4" /></Button>
+          <span className="text-muted-foreground">
+            หน้า {cur + 1} / {pages}
+          </span>
+          <Button
+            size="icon"
+            variant="ghost"
+            className="size-7"
+            disabled={cur === 0}
+            onClick={() => setPage(cur - 1)}
+          >
+            <ChevronLeft className="size-4" />
+          </Button>
+          <Button
+            size="icon"
+            variant="ghost"
+            className="size-7"
+            disabled={cur >= pages - 1}
+            onClick={() => setPage(cur + 1)}
+          >
+            <ChevronRight className="size-4" />
+          </Button>
         </div>
       )}
     </div>
   );
 }
 
-export function FilterSelect({ value, onChange, options, placeholder, className }: { value: string; onChange: (v: string) => void; options: { value: string; label: string }[]; placeholder: string; className?: string }) {
+export function FilterSelect({
+  value,
+  onChange,
+  options,
+  placeholder,
+  className,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+  placeholder: string;
+  className?: string | undefined;
+}) {
   return (
     <Select value={value} onValueChange={onChange}>
-      <SelectTrigger className={cn("h-9 w-40", className)}><SelectValue placeholder={placeholder} /></SelectTrigger>
+      <SelectTrigger className={cn("h-9 w-40", className)}>
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
       <SelectContent>
         <SelectItem value="all">{placeholder}: ทั้งหมด</SelectItem>
-        {options.map((o) => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
+        {options.map((o) => (
+          <SelectItem key={o.value} value={o.value}>
+            {o.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );
 }
 
 /* ---------- Workflow stepper ---------- */
-export function WorkflowStepper({ steps, current, blocked, compact }: { steps: string[]; current: number; blocked?: boolean; compact?: boolean }) {
+export function WorkflowStepper({
+  steps,
+  current,
+  blocked,
+  compact,
+}: {
+  steps: string[];
+  current: number;
+  blocked?: boolean | undefined;
+  compact?: boolean | undefined;
+}) {
   return (
     <ol className="flex w-full items-start">
       {steps.map((s, i) => {
@@ -200,12 +410,38 @@ export function WorkflowStepper({ steps, current, blocked, compact }: { steps: s
         const active = i === current;
         return (
           <li key={s} className="relative flex flex-1 flex-col items-center text-center">
-            {i > 0 && <span className={cn("absolute right-1/2 top-3.5 h-0.5 w-full -translate-y-1/2", done || active ? "bg-primary" : "bg-border")} />}
-            <span className={cn("relative z-10 flex size-7 items-center justify-center rounded-full border-2 text-xs font-semibold",
-              done ? "border-primary bg-primary text-primary-foreground" : active ? blocked ? "border-destructive bg-card text-destructive" : "border-primary bg-card text-primary" : "border-border bg-card text-muted-foreground")}>
+            {i > 0 && (
+              <span
+                className={cn(
+                  "absolute right-1/2 top-3.5 h-0.5 w-full -translate-y-1/2",
+                  done || active ? "bg-primary" : "bg-border",
+                )}
+              />
+            )}
+            <span
+              className={cn(
+                "relative z-10 flex size-7 items-center justify-center rounded-full border-2 text-xs font-semibold",
+                done
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : active
+                    ? blocked
+                      ? "border-destructive bg-card text-destructive"
+                      : "border-primary bg-card text-primary"
+                    : "border-border bg-card text-muted-foreground",
+              )}
+            >
               {done ? <Check className="size-3.5" /> : i + 1}
             </span>
-            {!compact && <span className={cn("mt-2 px-1 text-[11px] leading-tight", active ? "font-semibold text-foreground" : "text-muted-foreground")}>{s}</span>}
+            {!compact && (
+              <span
+                className={cn(
+                  "mt-2 px-1 text-[11px] leading-tight",
+                  active ? "font-semibold text-foreground" : "text-muted-foreground",
+                )}
+              >
+                {s}
+              </span>
+            )}
           </li>
         );
       })}
@@ -214,7 +450,19 @@ export function WorkflowStepper({ steps, current, blocked, compact }: { steps: s
 }
 
 /* ---------- Detail drawer ---------- */
-export function DetailDrawer({ open, onOpenChange, title, description, children }: { open: boolean; onOpenChange: (o: boolean) => void; title: ReactNode; description?: ReactNode; children: ReactNode }) {
+export function DetailDrawer({
+  open,
+  onOpenChange,
+  title,
+  description,
+  children,
+}: {
+  open: boolean;
+  onOpenChange: (o: boolean) => void;
+  title: ReactNode;
+  description?: ReactNode | undefined;
+  children: ReactNode;
+}) {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="w-full overflow-y-auto sm:max-w-lg">
@@ -237,7 +485,11 @@ export function Field({ label, children }: { label: string; children: ReactNode 
   );
 }
 
-export function Timeline({ items }: { items: { at: string; title: string; sub?: string }[] }) {
+export function Timeline({
+  items,
+}: {
+  items: { at: string; title: string; sub?: string | undefined }[];
+}) {
   if (!items.length) return <EmptyState title="ยังไม่มีประวัติ" hint="" />;
   return (
     <ol className="space-y-3 border-l pl-4">
